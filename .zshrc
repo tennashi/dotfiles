@@ -1,6 +1,5 @@
 # Set up the prompt
 export LANG=ja_JP.UTF-8
-xmodmap -e 'keycode 255=space'; xmodmap -e 'keycode 65=Shift_L'; xcape -e '#65=space'
 
 autoload -Uz promptinit
 promptinit
