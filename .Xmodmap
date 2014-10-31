@@ -26,4 +26,4 @@ keycode 52 = dollar
 keycode 97 = backslash
 keycode 100 = Tab
 keycode 102 = Escape
-
+keycode 101 = Zenkaku_Hankaku
