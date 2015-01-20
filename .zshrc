@@ -39,6 +39,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 alias ls='ls --color'
 alias ll='ls -l'
 alias la='ls -a'
+alias lev='/usr/share/vim/vim74/macros/less.sh'
 
 #zsh-syntax-highlighting
 if [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
