@@ -76,6 +76,7 @@ NeoBundle 'derekwyatt/vim-scala'
 
 " Color Schemes
 NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'altercation/vim-colors-solarized'
 call neobundle#end()
 
 "" neocomplete
@@ -119,10 +120,11 @@ endif
 
 "" ColorScheme
 set t_Co=256
-autocmd ColorScheme * highlight Normal ctermbg=none
-autocmd ColorScheme * highlight LineNr ctermfg=243 guifg=#aaaaaa
-autocmd ColorScheme * highlight Visual ctermfg=245
-colorscheme hybrid
+"autocmd ColorScheme * highlight Normal ctermbg=none
+"autocmd ColorScheme * highlight LineNr ctermfg=243 guifg=#aaaaaa
+"autocmd ColorScheme * highlight Visual ctermfg=245
+"colorscheme hybrid
+colorscheme solarized
 
 if has('unix') && !has('gui_running')
   " ESC後にすぐ反映されない対策

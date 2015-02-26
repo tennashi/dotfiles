@@ -20,6 +20,7 @@ nnoremap U :undo<Space>
 nnoremap <C-r> :restart<CR>
 nnoremap <C-S-l> :tabmove! +1<CR>
 nnoremap <C-S-h> :tabmove! -1<CR>
+nnoremap d dgT
 nnoremap ,es :set encoding=Shift_JIS<CR>
 nnoremap ,ee :set encoding=EUC-JP<CR>
 nnoremap ,eu :set encoding=UTF-8<CR>

@@ -1,0 +1,18 @@
+Config { font = "Ricty:size=6"
+       , bgColor = "black"
+       , fgColor = "grey"
+       , position = Top
+       , lowerOnStart = True
+       , commands = [
+                      Run StdinReader
+                    , Run Com "cut" ["-d ' '","-f -3","/proc/loadavg"] "loadavg" 10
+                    , Run Network "eth0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+                    , Run Network "wlan0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+                    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                    , Run Com "acpi" [] "battery" 300
+                    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+                    ]
+        , sepChar = "%"
+        , alignSep = "}{"
+        , template = "%StdinReader% }{ Load: %Loadavg% | %battery% | %cpu% | %eth0% - %wlan0% | %date%"
+}
