@@ -1,3 +1,10 @@
+# env
+if [[ $OSTYPE =~ darwin* ]]; then
+    export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+    export PATH="$HOME/bin:/usr/local/bin:$PATH"
+    export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+fi
+
 # プロンプト設定
 setopt prompt_subst # プロンプトを出すたびに再読み込み
 autoload -Uz add-zsh-hook
@@ -102,7 +109,7 @@ function _update_vcs_info_msg() {
 add-zsh-hook precmd _update_vcs_info_msg
 # 左プロンプト
 function prompt_set() {
-    eval `resize`
+    #eval `resize`
     local p_rhst=""
     if [[ -n "${REMOTEHOST}${SSH_CONNECTION}" ]]; then
         local rhost=`who am i | sed 's/.*(\(.*\)).*/\1/'`
@@ -172,6 +179,17 @@ setopt share_history
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # alias
+# mac用
+#local -a cmds
+#cmds=(ls cp mv ln cat touch seq rmdir rm mkdir mkfifo)
+#cmds+=(wc uniq sort tee tail head join cut)
+#cmds+=(chown chmod chgrp ps sleep nice)
+#cmds+=(xargs find)
+#cmds+=(grep fgrep egrep)
+#
+#for cmd in $cmds; do
+#    alias $cmd=`whence "g$cmd" || whence "$cmd"`
+#done
 alias ls='ls --color=auto -F'
 alias ll='ls -l'
 alias la='ls -a'
