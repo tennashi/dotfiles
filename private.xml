@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<root>
+    <item>
+        <name>MyKeyBind</name>
+        <identifier>private.my_keybind</identifier>
+        <autogen>__KeyToKey__ KeyCode::JIS_KANA, KeyCode::TAB</autogen>
+        <autogen>__KeyToKey__ KeyCode::JIS_EISUU, KeyCode::ESCAPE</autogen>
+
+        <!-- Shift 1段目 -->
+        <autogen>__KeyToKey__ KeyCode::KEY_2, ModifierFlag::SHIFT_L, KeyCode::JIS_ATMARK, ModifierFlag::SHIFT_L</autogen>
+        <autogen>__KeyToKey__ KeyCode::KEY_3, ModifierFlag::SHIFT_L, KeyCode::Q, ModifierFlag::SHIFT_L</autogen>
+        <autogen>__KeyToKey__ KeyCode::KEY_4, ModifierFlag::SHIFT_L, KeyCode::Q</autogen>
+        <autogen>__KeyToKey__ KeyCode::KEY_5, ModifierFlag::SHIFT_L, KeyCode::JIS_UNDERSCORE</autogen>
+        <autogen>__KeyToKey__ KeyCode::KEY_6, ModifierFlag::SHIFT_L, KeyCode::JIS_UNDERSCORE, ModifierFlag::SHIFT_L</autogen>
+        <autogen>__KeyToKey__ KeyCode::KEY_7, ModifierFlag::SHIFT_L, KeyCode::KEY_5, ModifierFlag::SHIFT_L</autogen>
+        <autogen>__KeyToKey__ KeyCode::KEY_8, ModifierFlag::SHIFT_L, KeyCode::KEY_7, ModifierFlag::SHIFT_L</autogen>
+        <autogen>__KeyToKey__ KeyCode::KEY_9, ModifierFlag::SHIFT_L, KeyCode::KEY_3, ModifierFlag::SHIFT_L</autogen>
+        <autogen>__KeyToKey__ KeyCode::KEY_0, ModifierFlag::SHIFT_L, KeyCode::KEY_2, ModifierFlag::SHIFT_L</autogen>
+        <autogen>__KeyToKey__ KeyCode::MINUS, ModifierFlag::SHIFT_L, KeyCode::Z</autogen>
+        <autogen>__KeyToKey__ KeyCode::JIS_HAT, ModifierFlag::SHIFT_L, KeyCode::MINUS</autogen>
+        <autogen>__KeyToKey__ KeyCode::JIS_YEN, ModifierFlag::SHIFT_L, KeyCode::JIS_HAT</autogen>
+
+        <!-- Shift 2段目 -->
+        <autogen>__KeyToKey__ KeyCode::Q, ModifierFlag::SHIFT_L, KeyCode::JIS_YEN, ModifierFlag::SHIFT_L</autogen>
+        <autogen>__KeyToKey__ KeyCode::W, ModifierFlag::SHIFT_L, KeyCode::MINUS, ModifierFlag::SHIFT_L</autogen>
+        <autogen>__KeyToKey__ KeyCode::E, ModifierFlag::SHIFT_L, KeyCode::JIS_HAT, ModifierFlag::SHIFT_L</autogen>
+        <autogen>__KeyToKey__ KeyCode::JIS_ATMARK, ModifierFlag::SHIFT_L, KeyCode::W, ModifierFlag::SHIFT_L</autogen>
+        <autogen>__KeyToKey__ KeyCode::JIS_BRACKET_LEFT, ModifierFlag::SHIFT_L, KeyCode::E, ModifierFlag::SHIFT_L</autogen>
+
+        <!-- Shift 3段目 -->
+        <autogen>__KeyToKey__ KeyCode::JIS_COLON, ModifierFlag::SHIFT_L, KeyCode::KEY_9, ModifierFlag::SHIFT_L</autogen>
+        <autogen>__KeyToKey__ KeyCode::JIS_BRACKET_RIGHT, ModifierFlag::SHIFT_L, KeyCode::KEY_0, ModifierFlag::SHIFT_L</autogen>
+
+        <!-- Shift 4段目 -->
+        <autogen>__KeyToKey__ KeyCode::Z, ModifierFlag::SHIFT_L, KeyCode::KEY_4, ModifierFlag::SHIFT_L</autogen>
+
+        <!-- 1段目 -->
+        <autogen>__KeyToKey__ KeyCode::MINUS, KeyCode::JIS_BRACKET_LEFT, ModifierFlag::SHIFT_L</autogen>
+        <autogen>__KeyToKey__ KeyCode::JIS_HAT, KeyCode::KEY_8, ModifierFlag::SHIFT_L</autogen>
+        <autogen>__KeyToKey__ KeyCode::JIS_YEN, KeyCode::KEY_6, ModifierFlag::SHIFT_L</autogen>
+
+        <!-- 2段目 -->
+        <autogen>__KeyToKey__ KeyCode::Q, KeyCode::Z, ModifierFlag::SHIFT_L</autogen>
+
+        <!-- 3段目 -->
+        <autogen>__KeyToKey__ KeyCode::JIS_BRACKET_RIGHT, KeyCode::JIS_COLON, ModifierFlag::SHIFT_L</autogen>
+
+        <!-- 4段目 -->
+        <autogen>__KeyToKey__ KeyCode::Z, KeyCode::KEY_4, ModifierFlag::SHIFT_L</autogen>
+        <autogen>__KeyToKey__ KeyCode::JIS_UNDERSCORE, KeyCode::JIS_BRACKET_RIGHT</autogen>
+    </item>
+</root>
