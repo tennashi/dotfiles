@@ -3,8 +3,26 @@
     <item>
         <name>MyKeyBind</name>
         <identifier>private.my_keybind</identifier>
-        <autogen>__KeyToKey__ KeyCode::JIS_KANA, KeyCode::TAB</autogen>
-        <autogen>__KeyToKey__ KeyCode::JIS_EISUU, KeyCode::ESCAPE</autogen>
+	<block>
+		<device_only>
+			DeviceVendor::APPLE_COMPUTER, DeviceProduct::RawValue::0x0239
+		</device_only>
+        	<autogen>__KeyOverlaidModifier__ KeyCode::COMMAND_R, KeyCode::COMMAND_R, KeyCode::TAB</autogen>
+        	<autogen>__KeyOverlaidModifier__ KeyCode::COMMAND_L, KeyCode::COMMAND_L, KeyCode::ESCAPE</autogen>
+		<autogen>__KeyToKey__ KeyCode::OPTION_R, KeyCode::SPACE, ModifierFlag::COMMAND_L</autogen>
+	</block>
+	<autogen>__KeyToKey__ KeyCode::JIS_KANA, KeyCode::TAB</autogen>
+	<autogen>__KeyToKey__ KeyCode::JIS_EISUU, KeyCode::ESCAPE</autogen>
+
+	<!-- Shift 1段目 for US -->
+	<block>
+		<device_only>
+			DeviceVendor::APPLE_COMPUTER, DeviceProduct::RawValue::0x0239
+		</device_only>
+		<autogen>__KeyToKey__ KeyCode::KEY_5, ModifierFlag::SHIFT_L, KeyCode::BACKQUOTE</autogen>
+		<autogen>__KeyToKey__ KeyCode::KEY_6, ModifierFlag::SHIFT_L, KeyCode::BACKQUOTE, ModifierFlag::SHIFT_L</autogen>
+		<autogen>__KeyToKey__ KeyCode::DELETE, ModifierFlag::SHIFT_L, KeyCode::EQUAL</autogen>
+	</block>
 
         <!-- Shift 1段目 -->
         <autogen>__KeyToKey__ KeyCode::KEY_2, ModifierFlag::SHIFT_L, KeyCode::JIS_ATMARK, ModifierFlag::SHIFT_L</autogen>
@@ -20,6 +38,15 @@
         <autogen>__KeyToKey__ KeyCode::JIS_HAT, ModifierFlag::SHIFT_L, KeyCode::MINUS</autogen>
         <autogen>__KeyToKey__ KeyCode::JIS_YEN, ModifierFlag::SHIFT_L, KeyCode::JIS_HAT</autogen>
 
+	<!-- Shift 2段目 for US -->
+	<block>
+		<device_only>
+			DeviceVendor::APPLE_COMPUTER, DeviceProduct::RawValue::0x0239
+		</device_only>
+        	<autogen>__KeyToKey__ KeyCode::Q, ModifierFlag::SHIFT_L, KeyCode::BACKSLASH, ModifierFlag::SHIFT_L</autogen>
+        	<autogen>__KeyToKey__ KeyCode::BACKSLASH, ModifierFlag::SHIFT_L, KeyCode::KEY_6, ModifierFlag::SHIFT_L</autogen>
+	</block>
+
         <!-- Shift 2段目 -->
         <autogen>__KeyToKey__ KeyCode::Q, ModifierFlag::SHIFT_L, KeyCode::JIS_YEN, ModifierFlag::SHIFT_L</autogen>
         <autogen>__KeyToKey__ KeyCode::W, ModifierFlag::SHIFT_L, KeyCode::MINUS, ModifierFlag::SHIFT_L</autogen>
@@ -27,6 +54,13 @@
         <autogen>__KeyToKey__ KeyCode::JIS_ATMARK, ModifierFlag::SHIFT_L, KeyCode::W, ModifierFlag::SHIFT_L</autogen>
         <autogen>__KeyToKey__ KeyCode::JIS_BRACKET_LEFT, ModifierFlag::SHIFT_L, KeyCode::E, ModifierFlag::SHIFT_L</autogen>
 
+	<!-- Shift 3段目 for US -->
+	<block>
+		<device_only>
+			DeviceVendor::APPLE_COMPUTER, DeviceProduct::RawValue::0x0239
+		</device_only>
+        	<autogen>__KeyToKey__ KeyCode::RETURN, ModifierFlag::SHIFT_L, KeyCode::KEY_0, ModifierFlag::SHIFT_L</autogen>
+	</block>
         <!-- Shift 3段目 -->
         <autogen>__KeyToKey__ KeyCode::JIS_COLON, ModifierFlag::SHIFT_L, KeyCode::KEY_9, ModifierFlag::SHIFT_L</autogen>
         <autogen>__KeyToKey__ KeyCode::JIS_BRACKET_RIGHT, ModifierFlag::SHIFT_L, KeyCode::KEY_0, ModifierFlag::SHIFT_L</autogen>
@@ -45,6 +79,12 @@
         <!-- 3段目 -->
         <autogen>__KeyToKey__ KeyCode::JIS_BRACKET_RIGHT, KeyCode::JIS_COLON, ModifierFlag::SHIFT_L</autogen>
 
+	<block>
+		<device_only>
+			DeviceVendor::APPLE_COMPUTER, DeviceProduct::RawValue::0x0239
+		</device_only>
+        	<autogen>__KeyOverlaidModifier__ KeyCode::SHIFT_R, KeyCode::SHIFT_R, KeyCode::BACKSLASH</autogen>
+	</block>
         <!-- 4段目 -->
         <autogen>__KeyToKey__ KeyCode::Z, KeyCode::KEY_4, ModifierFlag::SHIFT_L</autogen>
         <autogen>__KeyToKey__ KeyCode::JIS_UNDERSCORE, KeyCode::JIS_BRACKET_RIGHT</autogen>
