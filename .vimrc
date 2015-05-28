@@ -6,6 +6,7 @@ set ruler
 set title
 set cmdheight=2
 set laststatus=2
+let g:tex_conceal=''
 syntax on
 set tabstop=4
 set smartindent
@@ -123,7 +124,8 @@ set t_Co=256
 "autocmd ColorScheme * highlight LineNr ctermfg=243 guifg=#aaaaaa
 "autocmd ColorScheme * highlight Visual ctermfg=245
 "colorscheme hybrid
-colorscheme solarized
+"colorscheme solarized
+colorscheme darkblue
 
 if has('unix') && !has('gui_running')
   " ESC後にすぐ反映されない対策

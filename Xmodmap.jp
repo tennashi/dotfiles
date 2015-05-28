@@ -1,0 +1,7 @@
+remove Lock = Caps_Lock
+keysym Caps_Lock = Control_L
+add Control = Control_L
+
+keycode 100 = Tab
+keycode 102 = Escape
+keycode 101 = Zenkaku_Hankaku
