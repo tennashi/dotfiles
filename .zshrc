@@ -147,7 +147,18 @@ bindkey -v
 # 自動補完
 autoload -U compinit
 compinit
+# 補完中の候補をハイライトする
+zstyle ':completion:*:default' menu select=2
 
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
+zstyle ':completion:*:messages' format '%F{YELLOW}%d'$DEFAULT
+zstyle ':completion:*:warnings' format '%F{RED}No matches for:''%F{YELLOW} %d'$DEFAULT
+zstyle ':completion:*:descriptions' format '%F{YELLOW}completing %B%d%b'$DEFAULT
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:descriptions' format '%F{YELLOW}Completing %B%d%b'$DEFAULT
+
+zstyle ':completion:*' group-name ''
 # 履歴設定
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
@@ -179,17 +190,10 @@ setopt share_history
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # alias
-# mac用
-#local -a cmds
-#cmds=(ls cp mv ln cat touch seq rmdir rm mkdir mkfifo)
-#cmds+=(wc uniq sort tee tail head join cut)
-#cmds+=(chown chmod chgrp ps sleep nice)
-#cmds+=(xargs find)
-#cmds+=(grep fgrep egrep)
-#
-#for cmd in $cmds; do
-#    alias $cmd=`whence "g$cmd" || whence "$cmd"`
-#done
 alias ls='ls --color=auto -F'
 alias ll='ls -l'
 alias la='ls -a'
+
+
+# OPAM configuration
+. /home/tennashi/opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
