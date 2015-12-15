@@ -1,0 +1,29 @@
+!!Caps to Ctrl
+remove Lock = Caps_Lock
+keysym Caps_Lock = Control_L
+add Control = Control_L
+
+keycode 11 = 2 question
+keycode 12 = 3 quotedbl
+keycode 13 = 4 apostrophe
+keycode 14 = 5 grave
+keycode 15 = 6 asciitilde
+keycode 16 = 7 percent
+keycode 17 = 8 ampersand
+keycode 18 = 9 numbersign
+keycode 19 = 0 at
+keycode 20 = plus semicolon
+keycode 21 = asterisk bracketleft
+keycode 132 = asciicircum bracketright
+keycode 24 = colon bar
+keycode 25 = comma braceleft
+keycode 26 = period braceright
+keycode 34 = slash less
+keycode 35 = equal greater
+keycode 48 = minus parenleft
+keycode 51 = underscore parenright
+keycode 52 = dollar
+keycode 97 = backslash
+keycode 100 = Tab
+keycode 102 = Escape
+keycode 101 = Zenkaku_Hankaku

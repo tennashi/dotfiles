@@ -1,0 +1,28 @@
+"" 一般設定
+colorscheme solarized_dark
+set focuscontent
+set visualbell
+highlight Bell display:none
+set complete=l
+set hintchars=hutenosa
+set messages=500
+set verbose=15
+
+"" 検索設定
+set ignorecase
+
+"" keybinds
+nnoremap j 5j
+nnoremap k 5k
+nnoremap <C-l> gt
+nnoremap <C-h> gT
+nnoremap U :undo<Space>
+nnoremap <C-r> :restart<CR>
+nnoremap <C-S-l> :tabmove! +1<CR>
+nnoremap <C-S-h> :tabmove! -1<CR>
+nnoremap d dgT
+nnoremap ,es :set encoding=Shift_JIS<CR>
+nnoremap ,ee :set encoding=EUC-JP<CR>
+nnoremap ,eu :set encoding=UTF-8<CR>
+nnoremap ,el :set encoding=ISO-2022-JP<CR>
+
