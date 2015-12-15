@@ -1,18 +1,55 @@
-Config { font = "Ricty:size=6"
+Config { font = "xft:Ricty Diminished Discord:antialias=true:size=12"
        , bgColor = "black"
-       , fgColor = "grey"
+       , fgColor = "glay"
        , position = Top
        , lowerOnStart = True
-       , commands = [
-                      Run StdinReader
-                    , Run Com "cut" ["-d ' '","-f -3","/proc/loadavg"] "loadavg" 10
-                    , Run Network "eth0" ["-L","0","-H","32","--normal","green","--high","red"] 10
-                    , Run Network "wlan0" ["-L","0","-H","32","--normal","green","--high","red"] 10
-                    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
-                    , Run Com "acpi" [] "battery" 300
-                    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+       , commands = [ Run Network "wlan0" [ "-t"       , "u:<rx> - d:<tx>"
+                                          , "-L"       , "40"
+                                          , "-H"       , "200"
+                                          , "-m"       , "3"
+                                          , "--normal" , "green"
+                                          , "--high"   , "red"
+                                          ] 10
+                    , Run MultiCpu        [ "-t"       , "<total0>.<total1>.<total2>.<total3>"
+                                          , "-L"       , "40"
+                                          , "-H"       , "85"
+                                          , "-m"       , "2"
+                                          , "--normal" , "green"
+                                          , "--high"   , "red"
+                                          ] 10
+                    , Run Memory          [ "-t"       , "Mem:<usedratio>%"
+                                          , "-L"       , "40"
+                                          , "-H"       , "90"
+                                          , "-m"       , "2"
+                                          , "--normal" , "green"
+                                          , "--high"   , "red"
+                                          ] 10
+                    , Run BatteryP        ["BAT0"]
+                                          [ "-t"       , "<acstatus>"
+                                          , "-L"       , "20"
+                                          , "-H"       , "80"
+                                          , "--normal" , "green"
+                                          , "--low"    , "red"
+                                          , "--"
+                                                , "-o" , "<left>% (<timeleft>)"
+                                                , "-O" , "Charging <left>%"
+                                                , "-i" , "<left>%"
+                                          ] 50
+                    , Run BatteryN        ["BAT1"]
+                                          [ "-t"       , "<acstatus>"
+                                          , "-L"       , "20"
+                                          , "-H"       , "80"
+                                          , "--normal" , "green"
+                                          , "--low"    , "red"
+                                          , "--"
+                                                , "-o" , "<left>% (<timeleft>)"
+                                                , "-O" , "Charging <left>%"
+                                                , "-i" , "<left>%"
+                                          ] 50 "battery1"
+                    , Run Date "%a %b %_d %l:%M" "date" 10
+                    , Run StdinReader
                     ]
-        , sepChar = "%"
-        , alignSep = "}{"
-        , template = "%StdinReader% }{ Load: %Loadavg% | %battery% | %cpu% | %eth0% - %wlan0% | %date%"
-}
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ <fc=#999999>%multicpu%</fc> | <fc=#999999>%memory%</fc> | <fc=#999999>%wlan0%</fc> | <fc=#999999>%battery%</fc> <fc=#999999>%battery1%</fc>| <fc=#ee9a00>%date%</fc>"
+       }
