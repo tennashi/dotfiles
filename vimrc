@@ -107,6 +107,7 @@ if has('conceal')
     set conceallevel=2 concealcursor=i
 endif
 
+
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -119,13 +120,20 @@ if !exists('g:neocomplete#sources#omni#input_patterns')
 endif
 
 "" ColorScheme
-set t_Co=256
+"set t_Co=256
+set background=dark
+let g:solarized_termcolors = 256
 "autocmd ColorScheme * highlight Normal ctermbg=none
 "autocmd ColorScheme * highlight LineNr ctermfg=243 guifg=#aaaaaa
 "autocmd ColorScheme * highlight Visual ctermfg=245
 "colorscheme hybrid
-"colorscheme solarized
-colorscheme darkblue
+colorscheme solarized
+"colorscheme darkblue
+
+" lightline の色設定
+let g:lightline = {
+            \ 'colorscheme': 'solarized_dark'
+            \ }
 
 if has('unix') && !has('gui_running')
   " ESC後にすぐ反映されない対策
