@@ -1,9 +1,28 @@
 Config { font = "xft:Ricty Diminished Discord:antialias=true:size=12"
+       , additionalFonts = []
+       , borderColor = "black"
+       , border = TopB
        , bgColor = "black"
        , fgColor = "glay"
+       , alpha = 255
        , position = Top
+       , textOffset = -1
+       , iconOffset = -1
        , lowerOnStart = True
-       , commands = [ Run Network "wlan0" [ "-t"       , "u:<rx> - d:<tx>"
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , iconRoot = "."
+       , allDesktops = True
+       , overrideRedirect = False
+       , commands = [ Run Network "wlan0" [ "-t"       , "w[d:<rx> - u:<tx>]"
+                                          , "-L"       , "40"
+                                          , "-H"       , "200"
+                                          , "-m"       , "3"
+                                          , "--normal" , "green"
+                                          , "--high"   , "red"
+                                          ] 10
+                    , Run Network "eth0"  [ "-t"       , "e[d:<rx> - u:<tx>]"
                                           , "-L"       , "40"
                                           , "-H"       , "200"
                                           , "-m"       , "3"
@@ -46,10 +65,10 @@ Config { font = "xft:Ricty Diminished Discord:antialias=true:size=12"
                                                 , "-O" , "Charging <left>%"
                                                 , "-i" , "<left>%"
                                           ] 50 "battery1"
-                    , Run Date "%a %b %_d %l:%M" "date" 10
+                    , Run Date "%m/%d (%a) %H:%M:%S" "date" 10
                     , Run StdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ <fc=#999999>%multicpu%</fc> | <fc=#999999>%memory%</fc> | <fc=#999999>%wlan0%</fc> | <fc=#999999>%battery%</fc> <fc=#999999>%battery1%</fc>| <fc=#ee9a00>%date%</fc>"
+       , template = "%StdinReader% }{ <fc=#999999>%multicpu%</fc> | <fc=#999999>%memory%</fc> | <fc=#999999>%wlan0%</fc> | <fc=#999999>%eth0%</fc> | <fc=#999999>%battery%</fc> <fc=#999999>%battery1%</fc>| <fc=#ee9a00>%date%</fc>"
        }

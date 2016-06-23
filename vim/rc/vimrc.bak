@@ -8,7 +8,7 @@ set cmdheight=2
 set laststatus=2
 let g:tex_conceal=''
 syntax on
-set tabstop=2
+set tabstop=4
 set smartindent
 set autoindent
 set expandtab
@@ -40,7 +40,7 @@ set clipboard=unnamedplus
 
 "" 編集設定
 set expandtab
-set shiftwidth=2
+set shiftwidth=4
 
 "" key mapping
 nnoremap <C-l> gt
