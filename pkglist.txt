@@ -26,6 +26,7 @@ gawk
 gcc
 gcc-libs
 gettext
+git
 glibc
 grep
 groff
