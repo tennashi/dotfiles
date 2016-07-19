@@ -1,17 +1,23 @@
+" vim: set filetype=vim :
 "" 一般設定
-" カラースキーマ
-colorscheme solarized_dark
-
+" タイトル文字を変更
+set titlestring=Firefox
 " 入力欄に自動フォーカスしない
 set focuscontent
-
 " beep を visualbell にし, それを表示しない
 set visualbell
 highlight Bell display:none
+" hint 文字を変える
+set hintchars=fjdksla;
+" editor 設定
+set editor='xfce4-terminal --disable-server --execute nvim -c "set ft=markdown"'
+" カラースキーマ
+colorscheme monokai
+" :open で補完される項目
+set complete=tlS
 
 
-set complete=lh
-set hintchars=hutenosa
+
 set messages=500
 set verbose=15
 set gui=notabs
@@ -31,18 +37,14 @@ nnoremap U :undo<Space>
 nnoremap <C-r> :restart<CR>
 nnoremap <C-S-l> :tabmove! +1<CR>
 nnoremap <C-S-h> :tabmove! -1<CR>
-nnoremap d dgT
 nnoremap ,es :set encoding=Shift_JIS<CR>
 nnoremap ,ee :set encoding=EUC-JP<CR>
 nnoremap ,eu :set encoding=UTF-8<CR>
 nnoremap ,el :set encoding=ISO-2022-JP<CR>
 
 "" プラグイン管理
-source ~/.vimperator/plugin/vimppm/plugin/vimppm.js
+source ~/.vimperator/vimppm/plugin/vimppm.js
 vimppm "_libly.js"
-vimppm "imekeys.js"
 vimppm "caret-hint.js"
+vimppm "_smooziee.js"
 
-"" コマンドライン上で IME をオフ
-"let g:imeoff='cmd'
-"style -name commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
