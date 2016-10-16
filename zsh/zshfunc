@@ -1,0 +1,80 @@
+add-zsh-hook precmd _update_vcs_info_msg
+# git の作業コピーのあるディレクトリのみこの関数を呼び出す
+function +vi-git-hook-begin() {
+    if [[ $(command git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
+        return 1 # 0以外を返すとそれ以降の関数は呼び出されない
+    fi
+    return 0
+}
+# untracked ファイル表示
+# untracked ファイルとは, バージョン管理されていないファイル
+# %u に ? を表示
+function +vi-git-untracked() {
+    if [[ "$1" != "1" ]]; then # zstyle formats, actionformats の 2 番目のメッセージのみ対象
+        return 0
+    fi
+    if command git status --porcelain 2> /dev/null \
+        | awk '{print $1}' \
+        | command grep -F '??' > /dev/null 2>&1; then
+        hook_com[unstaged]+='?'
+    fi
+}
+# push していないコミットの件数表示
+# リモートリポジトリに push していないコミットの件数を pN という形式で %m に表示する
+function +vi-git-push-status() {
+    if [[ "$1" != "1" ]]; then
+        return 0
+    fi
+    if [[ "${hook_com[branch]}" != "master" ]]; then # master ブランチ出ない場合は何もしない
+        return 0
+    fi
+    local ahead
+    ahead=$(command git rev-list origin/master..master 2>/dev/null \
+        | wc -l \
+        | tr -d ' ')
+    if [[ "$ahead" -gt 0 ]]; then
+        hook_com[misc]+="(push:${ahead})"
+    fi
+}
+# マージしていない件数を表示
+# master 以外のブランチにいる場合に, 現在のブランチ上でまだ master にマージしていないコミットの件数を mN という形式で %m に表示
+function +vi-git-nomerge-branch() {
+    if [[ "$1" != "1" ]]; then
+        return 0
+    fi
+    if [[ "${hook_com[branch]}" == "master" ]]; then # master ブランチなら何もしない
+        return 0
+    fi
+    local nomarged
+    nomarged=$(command git rev-list master..${hook_com[branch]} 2>/dev/null | wc -l | tr -d ' ')
+    if [[ "$nomerged" -gt 0 ]]; then
+        hook_com[misc]+="(marge:${nomerged})"
+    fi
+}
+# stash 件数表示
+# stash している場合は :SN という形式で %m に表示
+function +vi-git-stash-count() {
+    if [[ "$1" != "1" ]]; then
+        return 0
+    fi
+    local stash
+    stash=$(command git stash list 2>/dev/null | wc -l | tr -d ' ')
+    if [[ "${stash}" -gt 0 ]]; then
+        hook_com[misc]+="stash:${stash}"
+    fi
+}
+
+function _update_vcs_info_msg() {
+    local -a messages
+    local prompt
+    LANG=en_US.UTF-8 vcs_info
+    if [[ -z ${vcs_info_msg_0_} ]]; then
+        prompt=""
+    else
+        [[ -n "$vcs_info_msg_0_" ]] && messages+=( "%F{cyan}${vcs_info_msg_0_}%f" )
+        [[ -n "$vcs_info_msg_1_" ]] && messages+=( "%F{yellow}${vcs_info_msg_1_}%f" )
+        [[ -n "$vcs_info_msg_2_" ]] && messages+=( "%F{red}${vcs_info_msg_2_}%f" )
+        prompt="${(j: :)messages}"
+    fi
+    RPROMPT="$prompt"
+}

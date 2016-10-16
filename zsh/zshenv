@@ -1,0 +1,6 @@
+# 履歴設定
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+# 単語の一部として扱う記号の指定
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'

@@ -1,0 +1,12 @@
+fg_color = white
+bg_color = black
+tabsize = 4
+use_variable_column_width = true
+scrollbar_mode = none
+use_clipboard = true
+use_auto_detect = false
+col_size_of_width_a = 2
+auto_detect_encodings = UTF-8,EUC-JP,SJIS
+fontsize = 13
+use_dynamic_comb = true
+word_separators=\ ",+

@@ -30,8 +30,8 @@ set wrapscan
 set incsearch
 
 "" 基本設定
-set backupdir=$HOME/vimbackup
-set directory=$HOME/vimbackup
+set backupdir=~/.vim/bac
+set directory=~/.vim
 set autoread
 set backspace=indent,eol,start
 set showcmd

@@ -1,0 +1,15 @@
+compinit
+# 大文字小文字を区別しない(大文字を入力すると区別する)
+zstyle 'completion:*' matcher-list 'm:{a-z}={A-Z}'
+# 補完中の候補をハイライトする
+zstyle ':completion:*:default' menu select=2
+
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
+zstyle ':completion:*:messages' format '%F{YELLOW}%d'$DEFAULT
+zstyle ':completion:*:warnings' format '%F{RED}No matches for:''%F{YELLOW} %d'$DEFAULT
+zstyle ':completion:*:descriptions' format '%F{YELLOW}completing %B%d%b'$DEFAULT
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:descriptions' format '%F{YELLOW}Completing %B%d%b'$DEFAULT
+
+zstyle ':completion:*' group-name ''

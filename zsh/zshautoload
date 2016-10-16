@@ -1,0 +1,4 @@
+autoload -Uz add-zsh-hook
+autoload -Uz colors # fg[color]を使えるようにする
+autoload -Uz vcs_info # vcs 情報を取得する関数を読み込む
+autoload -U compinit

@@ -1,0 +1,5 @@
+set assumed_charset="iso-2022-jp:euc-jp:shift_jis:utf-8"
+set realname="Yuya OTA"
+set envelope_from=yes
+set editor = "vim +/^$/+1 -c 'set ft=mail enc=utf-8 tw=72'"
+set header_cache=~/.cache/headers

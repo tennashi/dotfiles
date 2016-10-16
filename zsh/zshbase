@@ -1,0 +1,15 @@
+# vi ライクな操作
+bindkey -v
+# ファイル生成を強化
+setopt extended_glob
+# rm * の時確認する
+setopt rm_star_wait
+# cd を入力しなくても良い
+setopt auto_cd
+# ディレクトリスタックを有効, すでに存在するpathは登録しない
+setopt auto_pushd
+setopt pushd_ignore_dups
+# 履歴にあるコマンドは古いものから削除
+setopt hist_ignore_all_dups
+# 履歴を端末間で共有
+setopt share_history
