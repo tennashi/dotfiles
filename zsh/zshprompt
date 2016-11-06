@@ -21,9 +21,9 @@ function prompt_set() {
     local p_rhst=""
     if [[ -n "${REMOTEHOST}${SSH_CONNECTION}" ]]; then
         local rhost=`who am i | sed 's/.*(\(.*\)).*/\1/'`
-        rhost=${rhost#localhost:}
-        rhost=${rhost%%.*}
-        p_rhst="%F{yelow}($rhost)%f"
+        #rhost=${rhost#localhost:}
+        #rhost=${rhost%%.*}
+        p_rhst="%F{yellow}($rhost)%f"
     fi
     local p_cdir="===%F{cyan}<%~>[%D{%m/%d %T}]%f"
     local p_info="%(!,%F{magenta},%F{green})%n@%m%f"

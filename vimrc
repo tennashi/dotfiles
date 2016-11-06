@@ -8,13 +8,11 @@ set cmdheight=2
 set laststatus=2
 let g:tex_conceal=''
 syntax on
-set tabstop=2
 set smartindent
 set autoindent
 set expandtab
 set number
 set showmatch
-set smarttab
 set cursorline
 set scrolloff=5
 set list
@@ -26,8 +24,9 @@ endif
 "" 検索設定
 set ignorecase
 set smartcase
-set wrapscan
 set incsearch
+set nohlsearch
+set wrapscan
 
 "" 基本設定
 set backupdir=~/.vim/bac
@@ -40,7 +39,11 @@ set clipboard=unnamedplus
 
 "" 編集設定
 set expandtab
+set tabstop=2
 set shiftwidth=2
+set softtabstop=0
+set shiftround
+set smarttab
 
 "" key mapping
 nnoremap <C-l> gt
