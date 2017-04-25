@@ -1,7 +1,7 @@
 fg_color = white
 bg_color = black
 tabsize = 4
-use_variable_column_width = true
+use_variable_column_width = false
 scrollbar_mode = none
 use_clipboard = true
 use_auto_detect = false
@@ -10,3 +10,5 @@ auto_detect_encodings = UTF-8,EUC-JP,SJIS
 fontsize = 13
 use_dynamic_comb = true
 word_separators=\ ",+
+vertical_mode = none
+box_drawing_font = decsp
