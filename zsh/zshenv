@@ -4,3 +4,5 @@ HISTSIZE=10000
 SAVEHIST=10000
 # 単語の一部として扱う記号の指定
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+# for golang
+export GOPATH=~/.go

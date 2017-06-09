@@ -12,3 +12,5 @@ use_dynamic_comb = true
 word_separators=\ ",+
 vertical_mode = none
 box_drawing_font = decsp
+logsize = unlimited
+input_method = xim
