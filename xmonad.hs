@@ -6,12 +6,12 @@ import XMonad.Util.EZConfig
 import System.IO
 
 myborderWidth = 1
-myterminal = "urxvt"
+myterminal = "gnome-terminal"
 mymodMask = mod4Mask
 
 main :: IO ()
 main = do
-    xmproc <- spawnPipe "/usr/bin/xmobar /home/tennashi/.xmobarrc"
+    xmproc <- spawnPipe "/usr/bin/xmobar /home/yota/.xmobarrc"
     xmonad $ defaultConfig
         { manageHook = manageDocks <+> manageHook defaultConfig
         , layoutHook = avoidStruts  $  layoutHook defaultConfig
@@ -25,13 +25,15 @@ main = do
         , terminal = myterminal
         , focusFollowsMouse = False
         } `additionalKeys`
-        [ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")
+        [ ((mod4Mask .|. shiftMask, xK_z), spawn "i3lock")
         , ((controlMask, xK_space), spawn "")
         , ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
         , ((0, xK_Print), spawn "scrot")
-        , ((controlMask, xK_Return), spawn "rofi -show run -config ~/.Xresources")
         ]
 myStartupHook = do
-        spawn "compton --config /home/tennashi/.config/compton/compton.conf &"
-        spawn "xscreensaver -nosplash &"
-        spawn "nitrogen --restore &"
+        -- spawn "compton --config /home/tennashi/.config/compton/compton.conf &"
+        spawn "compton --config /home/tennashi/.compton.conf &"
+        -- spawn "xscreensaver -nosplash &"
+        -- spawn "nitrogen --restore &"
+        spawn "albert"
+        spawn "~/scripts/sands.sh"
