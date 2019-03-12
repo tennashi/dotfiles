@@ -1,0 +1,7 @@
+rofi.modi: run,drun,window,ssh
+rofi.sidebar-mode: true
+rofi.kb-mode-previous: Alt+p
+rofi.kb-mode-next: Alt+n
+rofi.theme: sidebar
+rofi.font: Ricty Diminished Discord with-icons 16
+

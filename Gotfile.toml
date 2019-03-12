@@ -1,0 +1,40 @@
+[[dotfile]]
+  dest = "~/.compton.conf"
+  src = "compton.conf"
+
+[[dotfile]]
+  dest = "~/.xmonad"
+  src = "xmonad/"
+
+[[dotfile]]
+  dest = "~/.tmux.conf"
+  src = "tmux.conf"
+
+[[dotfile]]
+  dest = "~/.Xmodmap"
+  src = "Xmodmap"
+
+[[dotfile]]
+  dest = "~/.fehbg"
+  src = "fehbg"
+
+[[dotfile]]
+  dest = "~/.bashrc"
+  src = "bashrc"
+
+[[dotfile]]
+  dest = "~/.gitconfig"
+  src = "gitconfig"
+
+[[dotfile]]
+  dest = "~/.config/fish"
+  src = "config/fish/"
+
+[[dotfile]]
+  dest = "~/.config/nvim"
+  src = "config/nvim/"
+
+[[dotfile]]
+  dest = "~/.config/rofi"
+  src = "config/rofi/"
+

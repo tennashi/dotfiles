@@ -1,0 +1,55 @@
+Config { font = "xft:Ricty\ Diminished\ Discord\ with\-icons:size=18"
+       , bgColor = "#2E3440"
+       , fgColor = "#D8DEE9"
+       , position = Top
+       , sepChar = "%"
+       , alignSep = "]["
+       , template = "%StdinReader% ][ %multicpu% │ %memory% │ %wlp1s0% │ %battery% │ <fc=#EBCB8B>%date%</fc>"
+       , lowerOnStart = True
+       , hideOnStart = False
+       , allDesktops = True
+       , overrideRedirect = True
+       , pickBroadest = False
+       , persistent = False
+       , iconRoot = "."
+       , commands = [ Run Network "wlp1s0" [ "-t"      , " :<rx> - :<tx>"
+                                          , "-L"       , "1000"
+                                          , "-H"       , "20000"
+					  , "-S"       , "True"
+					  , "-w"       , "7"
+					  , "--low"    , "#88C0D0"
+                                          , "--normal" , "#A3BE8C"
+                                          , "--high"   , "#BF616A"
+                                          ] 10
+                    , Run MultiCpu        [ "-t"       , ": <autovbar>"
+                                          , "-L"       , "40"
+                                          , "-H"       , "85"
+                                          , "-m"       , "2"
+					  , "--low"    , "#88C0D0"
+                                          , "--normal" , "#A3BE8C"
+                                          , "--high"   , "#BF616A"
+                                          ] 10
+                    , Run Memory          [ "-t"       , "Mem: <usedvbar>"
+                                          , "-L"       , "40"
+                                          , "-H"       , "80"
+                                          , "-m"       , "2"
+					  , "--low"    , "#88C0D0"
+                                          , "--normal" , "#A3BE8C"
+                                          , "--high"   , "#BF616A"
+                                          ] 10
+                    , Run Battery         [ "-t"       , ": <acstatus>"
+                                          , "-L"       , "20"
+                                          , "-H"       , "80"
+					  , "--high"   , "#88C0D0"
+                                          , "--normal" , "#A3BE8C"
+                                          , "--low"    , "#BF616A"
+                                          , "--"
+                                                , "-o" , "<left>% (<timeleft>)"
+                                                , "-O" , "Charging <left>%"
+                                                , "-i" , "<left>%"
+                                          ] 50
+                    , Run Date "%m/%d (%a) %H:%M:%S" "date" 10
+                    , Run StdinReader
+                    ]
+}
+
