@@ -3,8 +3,8 @@
   src = "compton.conf"
 
 [[dotfile]]
-  dest = "~/.xmonad"
-  src = "xmonad/"
+  dest = "~/.xmonad/"
+  src = "xmonad"
 
 [[dotfile]]
   dest = "~/.tmux.conf"
@@ -27,14 +27,14 @@
   src = "gitconfig"
 
 [[dotfile]]
-  dest = "~/.config/fish"
-  src = "config/fish/"
+  dest = "~/.config/fish/"
+  src = "config/fish"
 
 [[dotfile]]
-  dest = "~/.config/nvim"
-  src = "config/nvim/"
+  dest = "~/.config/nvim/"
+  src = "config/nvim"
 
 [[dotfile]]
-  dest = "~/.config/rofi"
-  src = "config/rofi/"
+  dest = "~/.config/rofi/"
+  src = "config/rofi"
 
