@@ -1,4 +1,4 @@
-fish_vi_key_bindings
+set fish_key_bindings fish_vi_key_bindings
 
 # color setting
 set -g theme_nerd_fonts yes

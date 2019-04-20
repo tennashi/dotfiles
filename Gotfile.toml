@@ -38,3 +38,6 @@
   dest = "~/.config/rofi/"
   src = "config/rofi"
 
+[package]
+  [package.apt]
+    names = ["sl", "neovim"]

@@ -101,4 +101,3 @@ myStartupHook = do
         SO.spawnOnce "~/.fehbg"
         SO.spawnOnce "sudo brightd -d -w 600"
         SO.spawnOnce "sh ~/dotfiles/scripts/sands.sh"
-

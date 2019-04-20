@@ -1,22 +1,92 @@
+set hidden
 set expandtab
 set tabstop=2
 set shiftwidth=2
 set autowrite
-set t_Co=256
-colorscheme nord
 set termguicolors
-let g:nord_comment_brightness = 20
-let g:nord_cursor_line_number_background = 1
-let mapleader = ","
+let mapleader = "\<Space>"
 set updatetime=100
 set number
+set showtabline=2
 
 map <C-n> :cnext<CR>
 map <C-m> :cprevious<CR>
 nnoremap <leader>a :cclose<CR>
 
+" plugins
+call plug#begin('~/.local/share/nvim/plugged')
+Plug 'junegunn/vim-plug'
+
+"" Colorscheme
+Plug 'arcticicestudio/nord-vim', {'do': 'cp colors/* ~/.config/nvim/colors/'}
+
+"" Go
+Plug 'fatih/vim-go', {'do': ':GoInstallBinaries' }
+Plug 'prabirshrestha/async.vim'
+
+"" Haskell
+Plug 'dag/vim2hs'
+
+"" Filer
+Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'kristijanhusak/defx-git'
+Plug 'kristijanhusak/defx-icons'
+
+"" Markdown
+Plug 'previm/previm'
+
+"" Git
+Plug 'lambdalisue/gina.vim'
+Plug 'airblade/vim-gitgutter'
+
+"" TypeScript
+Plug 'ryanolsonx/vim-lsp-typescript'
+Plug 'leafgarland/typescript-vim'
+
+"" Auto complete
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+Plug 'cohama/lexima.vim'
+Plug 'w0rp/ale'
+Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deol.nvim'
+Plug 'luochen1990/rainbow'
+Plug 'itchyny/lightline.vim'
+call plug#end()
+
+" ale
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'typescript': ['tslint'],
+\}
+let g:ale_linters_explicit = 1
+let g:ale_linters = {
+\   'typescript': ['tslint'],
+\}
+
+" Colorscheme
+colorscheme nord
+let g:nord_cursor_line_number_background = 1
+
+" rainbow
 let g:rainbow_active = 1
 
+" previm
+let g:previm_open_cmd = "firefox"
+
+" TypeScript
+if executable('typescript-language-server')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'typescript-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+        \ 'whitelist': ['typescript', 'typescript.tsx'],
+        \ })
+endif
 
 " Go
 function! s:build_go_files()
@@ -33,6 +103,9 @@ autocmd FileType go nmap <leader>r <Plug>(go-run)
 autocmd FileType go nmap <leader>t <Plug>(go-test)
 autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
 autocmd FileType go nmap <leader>i <Plug>(go-info)
+autocmd FileType go nmap <leader>s <Plug>(go-def-split)
+autocmd FileType go nmap <leader>v <Plug>(go-def-vertical)
+autocmd FileType go nmap <leader>d <Plug>(go-def)
 autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
 autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
 autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
@@ -47,24 +120,41 @@ let g:go_highlight_functions = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_build_constraints = 1
-"call lsp#server#add('go', ['gopls', '-mode', 'stdio'])
+if executable('gopls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'gopls',
+        \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
+        \ 'whitelist': ['go'],
+        \ })
+endif
 
 " Haskell
 let g:haskell_conceal = 0
 
-" deoplete
-let g:deoplete#enable_at_startup = 1
+" terminal
+tnoremap <silent> <C-t> <C-\><C-n>
+
+" lightline
+let g:lightline = {
+        \ 'colorscheme': 'one',
+        \ }
+
 
 " denite
-nnoremap <silent> <C-p> :<C-u>Denite file_rec<CR><Paste>
+nnoremap <silent> <C-p>f :<C-u>Denite file<CR><Paste>
+nnoremap <silent> <C-p>j :<C-u>Denite buffer file/rec<CR><Paste>
+nnoremap <silent> <C-p>b :<C-u>Denite buffer<CR><Paste>
+nnoremap returnt> <C-p>r :<C-u>Denite register<CR><Paste>
+" deol
+nnoremap <silent> <C-Space> :<C-u>Deol -split=holizontal<CR><Paste>
 
 " defx
-nnoremap <silent> <C-l> :<C-u>Defx -split=vertical -winwidth=30 -direction=topleft<CR>
+nnoremap <silent> <C-l> :<C-u>Defx -auto-cd -split=vertical -winwidth=40 -direction=topleft -listed -columns=git:icons:filename:type<CR>
 autocmd FileType defx call s:defx_my_settings()
     function! s:defx_my_settings() abort
      " Define mappings
       nnoremap <silent><buffer><expr> <CR>
-     \ defx#do_action('open')
+     \ defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('multi', ['drop', 'quit'])
       nnoremap <silent><buffer><expr> c
      \ defx#do_action('copy')
       nnoremap <silent><buffer><expr> m
@@ -72,22 +162,19 @@ autocmd FileType defx call s:defx_my_settings()
       nnoremap <silent><buffer><expr> p
      \ defx#do_action('paste')
       nnoremap <silent><buffer><expr> l
-     \ defx#do_action('open')
+     \ defx#do_action('drop')
       nnoremap <silent><buffer><expr> E
-     \ defx#do_action('open', 'split')
+     \ defx#do_action('drop', 'split')
       nnoremap <silent><buffer><expr> P
-     \ defx#do_action('open', 'pedit')
-      nnoremap <silent><buffer><expr> K
+     \ defx#do_action('drop', 'pedit')
+      nnoremap <silent><buffer><expr\ defx#do_action('new_file')
+      nnoremap <silent><buffer><expr> Nd
      \ defx#do_action('new_directory')
-      nnoremap <silent><buffer><expr> N
-     \ defx#do_action('new_file')
       nnoremap <silent><buffer><expr> d
-     \ defx#do_action('remove')
-      nnoremap <silent><buffer><expr> r
      \ defx#do_action('rename')
       nnoremap <silent><buffer><expr> x
-     \ defx#do_action('execute_system')
-      nnoremap <silent><buffer><expr> yy
+     commandefx#do_action('execute_system')
+      nnoremap commandlent><buffer><expr> yy
      \ defx#do_action('yank_path')
       nnoremap <silent><buffer><expr> .
      \ defx#do_action('toggle_ignored_files')
@@ -112,33 +199,3 @@ autocmd FileType defx call s:defx_my_settings()
       nnoremap <silent><buffer><expr> cd
      \ defx#do_action('change_vim_cwd')
     endfunction
-
-" plugins
-call plug#begin('~/.local/share/nvim/plugged')
-Plug 'junegunn/vim-plug'
-
-" Colorscheme
-Plug 'arcticicestudio/nord-vim', {'do': 'cp colors/* ~/.config/nvim/colors/'}
-
-" Go
-Plug 'fatih/vim-go', {'do': ':GoInstallBinaries' }
-Plug 'prabirshrestha/async.vim'
-
-" TypeScript
-Plug 'leafgarland/typescript-vim'
-Plug 'jason0x43/vim-js-indent'
-Plug 'Quramy/vim-js-pretty-template'
-Plug 'Quramy/tsuquyomi'
-
-" Haskell
-Plug 'dag/vim2hs'
-
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/deoplete-lsp'
-Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'luochen1990/rainbow'
-call plug#end()
-
