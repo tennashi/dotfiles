@@ -113,15 +113,15 @@ if ! shopt -oq posix; then
 fi
 
 # my config
+export PATH=$HOME/.anyenv/bin:$PATH
+eval "$(anyenv init -)"
+
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
-export GO111MODULE=on
 export GOPATH=$HOME/Documents
+export GO111MODULE=on
 export PATH=$GOPATH/bin:$PATH
-export PATH=$HOME/.anyenv/bin:$PATH
 export BRIGHTNESS="0.7"
-
-eval "$(anyenv init -)"
 
 exec fish
