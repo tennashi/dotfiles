@@ -1,17 +1,27 @@
-set hidden
+set autoindent
+set autoread
+set autowriteall
+set clipboard+=unnamed
 set expandtab
-set tabstop=2
-set shiftwidth=2
-set autowrite
-set termguicolors
-let mapleader = "\<Space>"
-set updatetime=100
+set gdefault
+set hidden
+set listchars="tab:>-,trail:-,eol:$"
+set mouse=a
 set number
+set relativenumber
+set shiftwidth=2
 set showtabline=2
+set smartindent
+set smarttab
+set tabstop=2
+set termguicolors
+set updatetime=100
+let mapleader = "\<Space>"
 
 map <C-n> :cnext<CR>
 map <C-m> :cprevious<CR>
 nnoremap <leader>a :cclose<CR>
+
 
 " plugins
 call plug#begin('~/.local/share/nvim/plugged')
@@ -55,6 +65,7 @@ Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deol.nvim'
 Plug 'luochen1990/rainbow'
 Plug 'itchyny/lightline.vim'
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 " ale
@@ -78,6 +89,15 @@ let g:rainbow_active = 1
 " previm
 let g:previm_open_cmd = "firefox"
 
+" vim-devicons
+let g:webdevicons_enable_denite=1
+function! DeviconFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+function! DeviconFileformat()
+  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
+
 " TypeScript
 if executable('typescript-language-server')
     au User lsp_setup call lsp#register_server({
@@ -97,20 +117,6 @@ function! s:build_go_files()
     call go#cmd#Build(0)
   endif
 endfunction
-
-autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-autocmd FileType go nmap <leader>r <Plug>(go-run)
-autocmd FileType go nmap <leader>t <Plug>(go-test)
-autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
-autocmd FileType go nmap <leader>i <Plug>(go-info)
-autocmd FileType go nmap <leader>s <Plug>(go-def-split)
-autocmd FileType go nmap <leader>v <Plug>(go-def-vertical)
-autocmd FileType go nmap <leader>d <Plug>(go-def)
-autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 let g:go_fmt_command = "goimports"
 let g:go_decls_includes = "func,type"
 let g:go_auto_type_info = 1
@@ -120,31 +126,61 @@ let g:go_highlight_functions = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_build_constraints = 1
-if executable('gopls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'gopls',
-        \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
-        \ 'whitelist': ['go'],
-        \ })
-endif
+
+augroup Go
+  au!
+  au FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+  au FileType go nmap <leader>r <Plug>(go-run)
+  au FileType go nmap <leader>t <Plug>(go-test)
+  au FileType go nmap <leader>c <Plug>(go-coverage-toggle)
+  au FileType go nmap <leader>i <Plug>(go-info)
+  au FileType go nmap <leader>s <Plug>(go-def-split)
+  au FileType go nmap <leader>v <Plug>(go-def-vertical)
+  au FileType go nmap <leader>d <Plug>(go-def)
+  au Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+  au Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+  au Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+  au Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+  au BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+  if executable('gopls')
+      au User lsp_setup call lsp#register_server({
+          \ 'name': 'gopls',
+          \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
+          \ 'whitelist': ['go'],
+          \ })
+  endif
+augroup END
 
 " Haskell
 let g:haskell_conceal = 0
 
 " terminal
 tnoremap <silent> <C-t> <C-\><C-n>
+augroup Term
+  au!
+  au TermOpen * setlocal nonumber norelativenumber
+  au TermOpen * normal i
+augroup END
 
 " lightline
 let g:lightline = {
-        \ 'colorscheme': 'one',
+        \ 'colorscheme': 'nord',
+        \ 'component_function': {
+        \   'filetype': 'DeviconFiletype',
+        \   'fileformat': 'DeviconFileformat',
         \ }
-
+        \ }
+let g:lightline.tab = {
+      \ 'active': [ 'tabnum', 'filename', 'modified' ],
+      \ 'inactive': [ 'tabnum', 'filename', 'modified' ]
+      \ }
 
 " denite
 nnoremap <silent> <C-p>f :<C-u>Denite file<CR><Paste>
 nnoremap <silent> <C-p>j :<C-u>Denite buffer file/rec<CR><Paste>
 nnoremap <silent> <C-p>b :<C-u>Denite buffer<CR><Paste>
 nnoremap returnt> <C-p>r :<C-u>Denite register<CR><Paste>
+
 " deol
 nnoremap <silent> <C-Space> :<C-u>Deol -split=holizontal<CR><Paste>
 
@@ -199,3 +235,14 @@ autocmd FileType defx call s:defx_my_settings()
       nnoremap <silent><buffer><expr> cd
      \ defx#do_action('change_vim_cwd')
     endfunction
+
+" gina
+nnoremap <silent> <leader>gs :<C-u>Gina status<CR>
+nnoremap <silent> <leader>gc :<C-u>Gina commit<CR>
+nnoremap <silent> <leader>gb :<C-u>Gina branch<CR>
+nnoremap <silent> <leader>gB :<C-u>Gina browse<CR>
+nnoremap <silent> <leader>g<C-b> :<C-u>Gina brame<CR>
+nnoremap <silent> <leader>gd :<C-u>Gina diff<CR>
+nnoremap <silent> <leader>gl :<C-u>Gina log<CR>
+nnoremap <silent> <leader>gp :<C-u>Gina pull<CR>
+nnoremap <silent> <leader>gP :<C-u>Gina push<CR>
