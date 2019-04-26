@@ -42,6 +42,7 @@ Plug 'Shougo/deol.nvim'
 Plug 'luochen1990/rainbow'
 Plug 'itchyny/lightline.vim'
 Plug 'ryanoasis/vim-devicons'
+Plug 'vimplugin/project.vim'
 call plug#end()
 
 set autoindent
@@ -191,10 +192,25 @@ let g:lightline.tab = {
       \ }
 
 " denite
+call denite#custom#var('file/rec', 'command',
+      \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+call denite#custom#map(
+      \ 'insert',
+      \ '<C-j>',
+      \ '<denite:move_to_next_line>',
+      \ 'noremap'
+      \)
+call denite#custom#map(
+      \ 'insert',
+      \ '<C-k>',
+      \ '<denite:move_to_previous_line>',
+      \ 'noremap'
+      \)
+
 nnoremap <silent> <C-p>f :<C-u>Denite file<CR><Paste>
 nnoremap <silent> <C-p>j :<C-u>Denite buffer file/rec<CR><Paste>
 nnoremap <silent> <C-p>b :<C-u>Denite buffer<CR><Paste>
-nnoremap returnt> <C-p>r :<C-u>Denite register<CR><Paste>
+nnoremap <silent> <C-p>r :<C-u>Denite register<CR><Paste>
 
 " deol
 nnoremap <silent> <C-Space> :<C-u>Deol -split=holizontal<CR><Paste>
