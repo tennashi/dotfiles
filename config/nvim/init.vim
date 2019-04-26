@@ -1,18 +1,3 @@
-set hidden
-set expandtab
-set tabstop=2
-set shiftwidth=2
-set autowrite
-set termguicolors
-let mapleader = "\<Space>"
-set updatetime=100
-set number
-set showtabline=2
-
-map <C-n> :cnext<CR>
-map <C-m> :cprevious<CR>
-nnoremap <leader>a :cclose<CR>
-
 " plugins
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'junegunn/vim-plug'
@@ -22,7 +7,6 @@ Plug 'arcticicestudio/nord-vim', {'do': 'cp colors/* ~/.config/nvim/colors/'}
 
 "" Go
 Plug 'fatih/vim-go', {'do': ':GoInstallBinaries' }
-Plug 'prabirshrestha/async.vim'
 
 "" Haskell
 Plug 'dag/vim2hs'
@@ -44,10 +28,12 @@ Plug 'ryanolsonx/vim-lsp-typescript'
 Plug 'leafgarland/typescript-vim'
 
 "" Auto complete
-Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'lighttiger2505/deoplete-vim-lsp'
+"Plug 'prabirshrestha/asyncomplete.vim'
+"Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 Plug 'cohama/lexima.vim'
 Plug 'w0rp/ale'
@@ -56,6 +42,31 @@ Plug 'Shougo/deol.nvim'
 Plug 'luochen1990/rainbow'
 Plug 'itchyny/lightline.vim'
 call plug#end()
+
+" settings
+set hidden
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set autowrite
+set termguicolors
+set updatetime=100
+set number
+set showtabline=2
+let mapleader = "\<Space>"
+
+" keymap
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
+
+" deoplete
+let g:deoplete#enable_at_startup = 1
+
+" vim-lsp
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_signs_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
 
 " ale
 let g:ale_fix_on_save = 1
@@ -80,12 +91,15 @@ let g:previm_open_cmd = "firefox"
 
 " TypeScript
 if executable('typescript-language-server')
+  augroup LspTS
+    au!
     au User lsp_setup call lsp#register_server({
         \ 'name': 'typescript-language-server',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+        \ 'cmd': {server_info->['typescript-language-server', '--stdio']},
         \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
         \ 'whitelist': ['typescript', 'typescript.tsx'],
         \ })
+  augroup END
 endif
 
 " Go
@@ -121,11 +135,14 @@ let g:go_highlight_operators = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_build_constraints = 1
 if executable('gopls')
+  augroup LspGo
+    au!
     au User lsp_setup call lsp#register_server({
         \ 'name': 'gopls',
         \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
         \ 'whitelist': ['go'],
         \ })
+  augroup END
 endif
 
 " Haskell
@@ -139,63 +156,64 @@ let g:lightline = {
         \ 'colorscheme': 'one',
         \ }
 
-
 " denite
 nnoremap <silent> <C-p>f :<C-u>Denite file<CR><Paste>
 nnoremap <silent> <C-p>j :<C-u>Denite buffer file/rec<CR><Paste>
 nnoremap <silent> <C-p>b :<C-u>Denite buffer<CR><Paste>
 nnoremap returnt> <C-p>r :<C-u>Denite register<CR><Paste>
+
 " deol
 nnoremap <silent> <C-Space> :<C-u>Deol -split=holizontal<CR><Paste>
 
 " defx
 nnoremap <silent> <C-l> :<C-u>Defx -auto-cd -split=vertical -winwidth=40 -direction=topleft -listed -columns=git:icons:filename:type<CR>
-autocmd FileType defx call s:defx_my_settings()
-    function! s:defx_my_settings() abort
-     " Define mappings
-      nnoremap <silent><buffer><expr> <CR>
-     \ defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('multi', ['drop', 'quit'])
-      nnoremap <silent><buffer><expr> c
-     \ defx#do_action('copy')
-      nnoremap <silent><buffer><expr> m
-     \ defx#do_action('move')
-      nnoremap <silent><buffer><expr> p
-     \ defx#do_action('paste')
-      nnoremap <silent><buffer><expr> l
-     \ defx#do_action('drop')
-      nnoremap <silent><buffer><expr> E
-     \ defx#do_action('drop', 'split')
-      nnoremap <silent><buffer><expr> P
-     \ defx#do_action('drop', 'pedit')
-      nnoremap <silent><buffer><expr\ defx#do_action('new_file')
-      nnoremap <silent><buffer><expr> Nd
-     \ defx#do_action('new_directory')
-      nnoremap <silent><buffer><expr> d
-     \ defx#do_action('rename')
-      nnoremap <silent><buffer><expr> x
-     commandefx#do_action('execute_system')
-      nnoremap commandlent><buffer><expr> yy
-     \ defx#do_action('yank_path')
-      nnoremap <silent><buffer><expr> .
-     \ defx#do_action('toggle_ignored_files')
-      nnoremap <silent><buffer><expr> h
-     \ defx#do_action('cd', ['..'])
-      nnoremap <silent><buffer><expr> ~
-     \ defx#do_action('cd')
-      nnoremap <silent><buffer><expr> q
-     \ defx#do_action('quit')
-      nnoremap <silent><buffer><expr> <Space>
-     \ defx#do_action('toggle_select') . 'j'
-      nnoremap <silent><buffer><expr> *
-     \ defx#do_action('toggle_select_all')
-      nnoremap <silent><buffer><expr> j
-     \ line('.') == line('$') ? 'gg' : 'j'
-      nnoremap <silent><buffer><expr> k
-     \ line('.') == 1 ? 'G' : 'k'
-      nnoremap <silent><buffer><expr> <C-l>
-     \ defx#do_action('redraw')
-      nnoremap <silent><buffer><expr> <C-g>
-     \ defx#do_action('print')
-      nnoremap <silent><buffer><expr> cd
-     \ defx#do_action('change_vim_cwd')
-    endfunction
+au FileType defx call s:defx_my_settings()
+  function! s:defx_my_settings() abort
+    " Define mappings
+     nnoremap <silent><buffer><expr> <CR>
+    \ defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('multi', ['drop', 'quit'])
+     nnoremap <silent><buffer><expr> c
+    \ defx#do_action('copy')
+     nnoremap <silent><buffer><expr> m
+    \ defx#do_action('move')
+     nnoremap <silent><buffer><expr> p
+    \ defx#do_action('paste')
+     nnoremap <silent><buffer><expr> l
+    \ defx#do_action('drop')
+     nnoremap <silent><buffer><expr> E
+    \ defx#do_action('drop', 'split')
+     nnoremap <silent><buffer><expr> P
+    \ defx#do_action('drop', 'pedit')
+     nnoremap <silent><buffer><expr>
+    \ defx#do_action('new_file')
+     nnoremap <silent><buffer><expr> Nd
+    \ defx#do_action('new_directory')
+     nnoremap <silent><buffer><expr> d
+    \ defx#do_action('rename')
+     nnoremap <silent><buffer><expr> x
+    \ defx#do_action('execute_system')
+     nnoremap <silent><buffer><expr> yy
+    \ defx#do_action('yank_path')
+     nnoremap <silent><buffer><expr> .
+    \ defx#do_action('toggle_ignored_files')
+     nnoremap <silent><buffer><expr> h
+    \ defx#do_action('cd', ['..'])
+     nnoremap <silent><buffer><expr> ~
+    \ defx#do_action('cd')
+     nnoremap <silent><buffer><expr> q
+    \ defx#do_action('quit')
+     nnoremap <silent><buffer><expr> <Space>
+    \ defx#do_action('toggle_select') . 'j'
+     nnoremap <silent><buffer><expr> *
+    \ defx#do_action('toggle_select_all')
+     nnoremap <silent><buffer><expr> j
+    \ line('.') == line('$') ? 'gg' : 'j'
+     nnoremap <silent><buffer><expr> k
+    \ line('.') == 1 ? 'G' : 'k'
+     nnoremap <silent><buffer><expr> <C-l>
+    \ defx#do_action('redraw')
+     nnoremap <silent><buffer><expr> <C-g>
+    \ defx#do_action('print')
+     nnoremap <silent><buffer><expr> cd
+    \ defx#do_action('change_vim_cwd')
+  endfunction

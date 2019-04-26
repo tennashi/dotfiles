@@ -43,7 +43,7 @@ import qualified XMonad.Config.Gnome as Gn
 import qualified Graphics.X11.ExtraTypes.XF86 as XF86
 
 myBorderWidth = 4
-myTerminal = "gnome-terminal"
+myTerminal = "alacritty"
 myModMask = mod4Mask
 myFocusedBorderColor = "#88C0D0"
 myNormalBorderColor = "#4C566A"
