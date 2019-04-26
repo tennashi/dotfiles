@@ -38,6 +38,47 @@
   dest = "~/.config/rofi/"
   src = "config/rofi"
 
+[[dotfile]]
+  dest = "~/Pictures/danboard.png"
+  src = "danboard.png"
+
 [package]
   [package.apt]
-    names = ["sl", "neovim"]
+    names = [
+      "brightd",
+      "brightnessctl",
+      "compton",
+      "curl",
+      "docker.io",
+      "docker-compose",
+      "dunst",
+      "feh",
+      "fish",
+      "git",
+      "htop",
+      "i3lock",
+      "ibus-skk",
+      "libbz2-dev",
+      "libnotify-bin",
+      "libreadline-dev",
+      "libsecret-tools",
+      "libsqlite3-dev",
+      "libssl-dev",
+      "isync",
+      "make",
+      "msmtp",
+      "neomutt",
+      "neovim",
+      "notmuch",
+      "peco",
+      "rofi",
+      "scrot",
+      "sl",
+      "tmux",
+      "w3m",
+      "weechat",
+      "xmobar",
+      "xmonad",
+      "xsel",
+      "zathura",
+    ]
