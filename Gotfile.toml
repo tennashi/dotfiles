@@ -45,6 +45,8 @@
 [package]
   [package.apt]
     names = [
+      "alacritty",
+      "asciinema",
       "brightd",
       "brightnessctl",
       "compton",
@@ -78,6 +80,7 @@
       "tmux",
       "w3m",
       "weechat",
+      "xclip",
       "xmobar",
       "xmonad",
       "xsel",
